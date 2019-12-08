@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>Weather</title>
+<!-- Don't forget to link to jQuery -->
 <style>
 	input{
 		margin: 10px 0px;
@@ -39,61 +40,74 @@
 		<p>The high today will be <span id = "high"></span> and the low will be <span id = "low"></span>.</p>
 
 	</div>
-</body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script>
 
+
+// setting default variables
 	$("#forecast").css("display", "none");
+	let city = "Ann Arbor"
+	let units = "imperial"
+	let apikey = "9ec44febeea30b1de2e653e79e126cbe"
 
-	var query = "https://api.openweathermap.org/data/2.5/weather?q=Ann Arbor&APPID=9ec44febeea30b1de2e653e79e126cbe";
+// note: new variables only update after clicking get weather
+	  function gettingJSON(){
+	    	console.log("Hi")
+				$("#forecast").css("display", "block");
+
+			console.log("here");
+			console.log($('input[name="temp"]').val());
+
+// changing temperatures
+			if ( $("#fahrenheit").is(':checked') ){
+				console.log("here");
+				units = $("#fahrenheit").val()
+			}
+
+			if ( $("#celcius").is(':checked') ){
+				console.log("here");
+				units = $("#celcius").val()
+			}
+			else {
+				units = "imperial";
+			}
+
+// changing the city if input is not blank
+			if ( $("#location").val().length != 0 ){
+				city =  $("#location").val();
+			}
+			else {
+				city = "Ann Arbor";
+			}
+
+// updating the query with new inputs
+	let query = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units="+ units +"&APPID=" + apikey;
 	console.log("Query is :" + query)
 
+				$.getJSON(query,function(json){
+						console.log(JSON.stringify(json));
+						console.log(JSON.parse(JSON.stringify(json)));
+						console.log(JSON.parse(JSON.stringify(json)).main.temp);
+						var temper = JSON.parse(JSON.stringify(json)).main.temp
+						console.log(temp);
+						var hight = JSON.parse(JSON.stringify(json)).main.temp_max
+						console.log(hight);
+						var lowt = JSON.parse(JSON.stringify(json)).main.temp_min
+						console.log(lowt);
+						var icon = JSON.parse(JSON.stringify(json)).weather[0].icon
+						console.log(icon);
+// setting new values based on updated query
+						$("#temp").text(temper);
+						$("#high").text(hight);
+						$("#low").text(lowt);
+						$("#tempImg").attr("src", "http://openweathermap.org/img/wn/" + icon + ".png");
+				})
 
-		// when get weather is clicked:
-    function gettingJSON(){
-    	console.log("Hi")
-			$("#forecast").css("display", "block");
+	  }
 
-
-			$.getJSON(query,function(json){
-					console.log(JSON.stringify(json));
-					var hey = JSON.stringify(json);
-					// if ("temp" in hey){
-						$("#temp").text(result.temp);
-// 					}
-			})
-
-		// if ("temp" in hey){
-		// 	$("#temp").text(result.temp);
-		// }
-		// if ("temp_max" in result){
-		// 	$("#high").text(result.temp_max);
-		// }
-		// if ("temp_min" in result){
-		// 	$("#low").text(result.temp_min);
-		// }
-		// if ("icon" in result){
-		// 	$("#tempImg").text(result.icon);
-		// }
+</script>
 
 
-
-    	//  the current temperature
-
-    	//  the high temperature for the day
-
-    	//  the low temperature for the day
-
-    	//  the icon for the current weather.
-
-
-
-    	// You will need to update this query with the city, weather format (Celsius or Fahrenheit) and your OpenWeatherMap ID
-
-    	// Right now I have it set to Chicago.  The default should be Ann Abor/Fahreheit.
-
-    }
-    </script>
-
+</body>
 </html>
