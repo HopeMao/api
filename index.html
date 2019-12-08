@@ -62,18 +62,20 @@
 $.ajax({
 	query: query,
 	success: function(result){
-		if ("temp" in result){
-			$("#temp").text(result.temp);
-		}
-		if ("temp_max" in result){
-			$("#high").text(result.temp_max);
-		}
-		if ("temp_min" in result){
-			$("#low").text(result.temp_min);
-		}
-		if ("icon" in result){
-			$("#tempImg").text(result.icon);
-		}
+		console.log(result);
+
+		// if ("temp" in result){
+		// 	$("#temp").text(result.temp);
+		// }
+		// if ("temp_max" in result){
+		// 	$("#high").text(result.temp_max);
+		// }
+		// if ("temp_min" in result){
+		// 	$("#low").text(result.temp_min);
+		// }
+		// if ("icon" in result){
+		// 	$("#tempImg").text(result.icon);
+		// }
 	}
 });
 
