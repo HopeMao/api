@@ -47,8 +47,8 @@
 	$("#forecast").css("display", "none");
 
 	var query = "https://api.openweathermap.org/data/2.5/weather?q=Ann Arbor&APPID=9ec44febeea30b1de2e653e79e126cbe";
-			console.log("Query is :" + query)
-	})
+	console.log("Query is :" + query)
+
 
 		// when get weather is clicked:
     function gettingJSON(){
@@ -59,6 +59,7 @@
 			$.getJSON(query,function(json){
 					console.log(JSON.stringify(json));
 					var hey = JSON.stringify(json);
+			})
 
 		if ("temp" in hey){
 			$("#temp").text(result.temp);
