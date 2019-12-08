@@ -46,6 +46,13 @@
 
 	$("#forecast").css("display", "none");
 
+	let query = "https://api.openweathermap.org/data/2.5/weather?q=Ann Arbor&APPID=9ec44febeea30b1de2e653e79e126cbe";
+			console.log("Query is :" + query)
+
+			$.getJSON(query,function(json){
+					console.log(JSON.stringify(json));
+	})
+
 		// when get weather is clicked:
     function gettingJSON(){
     	console.log("Hi")
@@ -64,13 +71,14 @@ $.ajax({
 		if ("temp_min" in result){
 			$("#low").text(result.temp_min);
 		}
+		if ("icon" in result){
+			$("#tempImg").text(result.icon);
+		}
 	}
 });
 
 
     	//  the current temperature
-
-			// $("#temp").val("");
 
     	//  the high temperature for the day
 
@@ -83,12 +91,6 @@ $.ajax({
     	// You will need to update this query with the city, weather format (Celsius or Fahrenheit) and your OpenWeatherMap ID
 
     	// Right now I have it set to Chicago.  The default should be Ann Abor/Fahreheit.
-		let query = "https://api.openweathermap.org/data/2.5/weather?q=Ann Arbor&APPID=9ec44febeea30b1de2e653e79e126cbe";
-        console.log("Query is :" + query)
-
-        $.getJSON(query,function(json){
-            console.log(JSON.stringify(json));
-    })
     }
     </script>
 
